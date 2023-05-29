@@ -65,62 +65,58 @@ struct integral_constant {
     constexpr value_type operator()() const noexcept { return value; }
 };
 
-struct true_type : public integral_constant<bool, true> {};
-
-struct false_type : public integral_constant<bool, false> {};
-
 template <typename>
-struct is_integral_base : false_type {
+struct is_integral_base {
     static constexpr bool value = false;
 };
 
 template <>
-struct is_integral_base<char> : true_type {
+struct is_integral_base<char>{
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<short> : true_type {
+struct is_integral_base<short>{
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<int> : true_type {
+struct is_integral_base<int>{
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<long> : true_type {
+struct is_integral_base<long> {
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<long long> : true_type {
+struct is_integral_base<long long>{
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<unsigned char> : true_type {
+struct is_integral_base<unsigned char>{
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<unsigned short> : true_type {
+struct is_integral_base<unsigned short> {
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<unsigned> : true_type {
+struct is_integral_base<unsigned> {
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<unsigned long> : true_type {
+struct is_integral_base<unsigned long>{
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<unsigned long long> : true_type {
+struct is_integral_base<unsigned long long>{
     static constexpr bool value = true;
 };
 
