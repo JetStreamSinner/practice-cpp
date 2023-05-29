@@ -24,12 +24,6 @@ struct is_same<T, T> {
     static const bool value = true;
 };
 
-// Is pointer?
-template <typename T>
-struct is_pointer {
-    static const bool value = false;
-};
-
 // Is const?
 template <typename T>
 struct is_const {
@@ -47,15 +41,6 @@ struct AnotherStruct {
     int a;
 };
 
-template <typename A, typename B>
-constexpr bool is_same_v = is_same<A, B>::value;
-
-template <typename T>
-constexpr bool is_pointer_v = is_pointer<T>::value;
-
-template <typename T>
-constexpr bool is_const_v = is_const<T>::value;
-
 template <typename T, T v>
 struct integral_constant {
     static constexpr T value = v;
@@ -71,17 +56,17 @@ struct is_integral_base {
 };
 
 template <>
-struct is_integral_base<char>{
+struct is_integral_base<char> {
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<short>{
+struct is_integral_base<short> {
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<int>{
+struct is_integral_base<int> {
     static constexpr bool value = true;
 };
 
@@ -91,12 +76,12 @@ struct is_integral_base<long> {
 };
 
 template <>
-struct is_integral_base<long long>{
+struct is_integral_base<long long> {
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<unsigned char>{
+struct is_integral_base<unsigned char> {
     static constexpr bool value = true;
 };
 
@@ -111,21 +96,48 @@ struct is_integral_base<unsigned> {
 };
 
 template <>
-struct is_integral_base<unsigned long>{
+struct is_integral_base<unsigned long> {
     static constexpr bool value = true;
 };
 
 template <>
-struct is_integral_base<unsigned long long>{
+struct is_integral_base<unsigned long long> {
     static constexpr bool value = true;
 };
 
 template <typename T>
 struct is_integral : is_integral_base<std::remove_cv_t<T>> {};
 
+template <typename T>
+struct is_pointer_base {
+    static const bool value = false;
+};
+
+template <typename T>
+struct is_pointer_base<T*> {
+    static const bool value = true;
+};
+
+template <typename T>
+struct is_pointer_base<T*const> {
+    static const bool value = true;
+};
+
+template <typename T>
+struct is_pointer : is_pointer_base<T> {};
+
 // Helper variable templates
 template <typename T>
 constexpr bool is_integral_v = is_integral<T>::value;
+
+template <typename A, typename B>
+constexpr bool is_same_v = is_same<A, B>::value;
+
+template <typename T>
+constexpr bool is_pointer_v = is_pointer<T>::value;
+
+template <typename T>
+constexpr bool is_const_v = is_const<T>::value;
 
 TEST(is_same, all) {
     EXPECT_TRUE(
