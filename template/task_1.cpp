@@ -24,11 +24,6 @@ struct is_same<T, T> {
     static const bool value = true;
 };
 
-// Is const?
-template <typename T>
-struct is_const {
-    static const bool value = false;
-};
 
 // Auxilliary types
 enum TestEnum {};
@@ -125,6 +120,21 @@ struct is_pointer_base<T*const> {
 
 template <typename T>
 struct is_pointer : is_pointer_base<T> {};
+
+template<typename T>
+struct is_const_base {
+    static const bool value = false;
+};
+
+template<typename T>
+struct is_const_base<const T> {
+    static const bool value = true;
+};
+
+template <typename T>
+struct is_const : is_const_base<T> {
+};
+
 
 // Helper variable templates
 template <typename T>
