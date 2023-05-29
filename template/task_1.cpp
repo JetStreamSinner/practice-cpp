@@ -17,11 +17,17 @@ struct is_integral {
   static const bool value = false;
 };
 
-
 // Is same?
 template <typename A, typename B>
 struct is_same {
   static const bool value = false;
+};
+
+// One type is equal to self by the determination
+template<typename T>
+struct is_same<T, T>
+{
+    static const bool value = true;
 };
 
 
